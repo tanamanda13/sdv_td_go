@@ -1,12 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 type IPAddr [4]byte
 
 func main() {
 	// Use IPAddr interface
 	var ip = IPAddr{1, 2, 3, 4}
+	// fmt.Println(ip.String())
 	fmt.Println(ip.String())
 
 	// hosts := map[string]IPAddr{
@@ -19,6 +24,20 @@ func main() {
 }
 
 // Implement fmt.Stringer interface
+// func (ipAd *IPAddr)String() string {
+// 	return fmt.Sprintf("%v.%v.%v.%v", ipAd[0], ipAd[1], ipAd[2], ipAd[3])
+// }
+
+// Implement interface via strconv
 func (ipAd *IPAddr)String() string {
-	return fmt.Sprintf("%v.%v.%v.%v", ipAd[0], ipAd[1], ipAd[2], ipAd[3])
+	return convert(ipAd) 
+}
+
+// strconv
+func convert( b *IPAddr ) string {
+	s := make([]string,len(b))
+	for i := range b {
+			s[i] = strconv.Itoa(int(b[i]))
+	}
+	return strings.Join(s,".")
 }
