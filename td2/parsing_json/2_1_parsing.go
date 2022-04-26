@@ -18,7 +18,6 @@ func main() {
 }
 
 type User struct {
-	// Login string `json:"login"`
-	Login string
+	Login string `json:"userName"`
 	Password string
 }
