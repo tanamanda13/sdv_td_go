@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"io/ioutil"
+	"os"
 )
 
 func main() {
@@ -36,6 +36,16 @@ func main() {
 	var users []User
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &users)
+
+	// fmt.Println(users)
+	// usersList := make([]string,len(users))
+	usersList := make([]User,len(users))
+	for i, u := range users {
+		usersList[i] = u
+		// fmt.Println(i)
+		// fmt.Println(u) // users[i]
+	}
+	fmt.Println(usersList)
 }
 
 type User struct {
