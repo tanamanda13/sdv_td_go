@@ -10,7 +10,7 @@ func main() {
 }
 
 func PrintIt(input interface{}) {
-	switch input.(type) {
+	switch input.(type) { // v := input.(type)
 	case int:
 		fmt.Println("c'est un int")
 	case string:
