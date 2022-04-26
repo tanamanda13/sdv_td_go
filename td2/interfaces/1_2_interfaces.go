@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func main() {
+func main2() {
 	err := run()
 	if err != nil {
 		log.Fatal(err)
