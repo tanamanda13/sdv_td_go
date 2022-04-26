@@ -8,7 +8,7 @@ import (
 
 type IPAddr [4]byte
 
-func main() {
+func main1() {
 	// Use IPAddr interface
 	var ip = IPAddr{1, 2, 3, 4}
 	// fmt.Println(ip.String())
@@ -34,10 +34,16 @@ func (ipAd *IPAddr)String() string {
 }
 
 // strconv
-func convert( b *IPAddr ) string {
+func convert( b *IPAddr ) string { // IPAddr sans étoile
 	s := make([]string,len(b))
 	for i := range b {
 			s[i] = strconv.Itoa(int(b[i]))
 	}
+	// for i, val := range b {
+	// 		s[i] = strconv.Itoa(int(val))
+	// }
+	// for i := 0; i < len(b); i++ {
+	// 	s[i] = strconv.Itoa(int(b[i]))
+	// }
 	return strings.Join(s,".")
 }
