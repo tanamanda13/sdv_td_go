@@ -16,7 +16,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "program": "${fileDirname}/2_1_parsing.go"
+      "program": "${fileDirname}/2_2_parsing.go"
     }
   ]
 }
