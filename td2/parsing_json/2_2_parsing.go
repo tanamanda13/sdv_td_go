@@ -3,16 +3,16 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"log"
+	"net/http"
 )
 
 var usersMap map[string]User // Déclaration + type
 
 func main() {
-	// jsonFile, err := os.Open("./users.json")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
+
 	file, _ := ioutil.ReadFile("./users.json")
 	var users []User
 	json.Unmarshal(file, &users)
@@ -26,11 +26,16 @@ func main() {
 	}
 	fmt.Println(usersMap)
 
-
+	http.HandleFunc("/", ServeHTTP)
+	log.Fatal(http.ListenAndServe(":4000", nil))
 }
 
 type User struct {
 	Login string `json:"userName"`
 	Password string
 	UserID string
+}
+
+func ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Hello, world and people!\n")
 }
