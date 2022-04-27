@@ -29,13 +29,13 @@ func main() {
 	// // defer the closing of our jsonFile so that we can parse it later on
 	// defer jsonFile.Close()
 
-	jsonFile, err := os.Open("./users.json")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// jsonFile, err := os.Open("./users.json")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	file, _ := ioutil.ReadFile("./users.json")
 	var users []User
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &users)
+	json.Unmarshal(file, &users)
 
 	// fmt.Println(users)
 	// usersList := make([]string,len(users))
