@@ -18,6 +18,26 @@ func main() {
 
 	listenCh1, listenCh2 := <-ch1, <-ch2
 	fmt.Println("listening on ", listenCh1, listenCh2)
+
+	// select {
+	// case <-ch1:
+	// 	fmt.Println("received channel1")
+	// case <-ch2:
+	// 	fmt.Println("received channel2")
+	// default:
+	// 	fmt.Println("no activity")
+	// }
+	for i := 0; i < 2; i++ {
+		select {
+		case <-ch1:
+			fmt.Println("received channel1")
+		case <-ch2:
+			fmt.Println("received channel2")
+		// default:
+		// 	fmt.Println("no activity")
+		}
+
+	}
 }
 
 type Reponse struct {
@@ -29,19 +49,19 @@ func callServer(addr string, resChan chan Reponse) {
 	resp, err := http.Get(addr)
 	if err != nil {
 		// log.Fatalln(err)
-		e := Reponse{RespText: "Une erreur est survenue", Err: err}
+		e := Reponse{Err: err}
 		resChan <- e
 		return
 	}
 	if resp.StatusCode != 200 {
-		e2 := Reponse{RespText: "Mauvais status", Err: errors.New("Le code retourné par le serveur indique une erreur: " + strconv.Itoa(resp.StatusCode))}
+		e2 := Reponse{Err: errors.New("Le code retourné par le serveur indique une erreur: " + strconv.Itoa(resp.StatusCode))}
 		fmt.Println(e2)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		// log.Fatalln(err)
-		eBody := Reponse{RespText: "Une erreur dans le body", Err: err}
+		eBody := Reponse{Err: err}
 		resChan <- eBody
 	} else {
 		//Convert the body to type string
